@@ -12,6 +12,6 @@ module wptr_full #(parameter int ADDR_WIDTH = 4) (
     assign wgraynext = (wbinnext >> 1) ^ wbinnext;
     always_ff @(posedge wclk or negedge wrst_n) begin
         if (!wrst_n) begin wbin <= '0; wptr <= '0; wfull <= 1'b0; end
-        else begin wbin <= wbinnext; wptr <= wgraynext; wfull <= (wgraynext == {~wq2_rptr[ADDR_WIDTH], wq2_rptr[ADDR_WIDTH-1:0]}); end
+        else begin wbin <= wbinnext; wptr <= wgraynext; wfull <= (wgraynext == {~wq2_rptr[ADDR_WIDTH:ADDR_WIDTH-1], wq2_rptr[ADDR_WIDTH-2:0]}); end
     end
 endmodule
